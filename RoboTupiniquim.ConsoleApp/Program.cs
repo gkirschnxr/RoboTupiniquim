@@ -66,26 +66,44 @@ internal class Program
         {
             Console.Clear();
             Console.WriteLine($"Área X: {areaValida}m² Área Y: {areaValida}m²");
-            Console.WriteLine("Descreva a posição inicial do robô: ");
+            Console.WriteLine("Descreva a posição inicial do robô 1: ");
             Console.WriteLine("(ex: 0,0,N)");
-            Console.SetCursorPosition(36, 1);
+            Console.SetCursorPosition(38, 1);
 
-            string input = Console.ReadLine()!;
+            string input1 = Console.ReadLine()!;
 
-            string[] posicoes = input.Split(' ', ',');
+            string[] posicoes1 = input1.Split(' ', ',');
+
+            Console.WriteLine();
+            Console.WriteLine("Descreva a posição inicial do robô 2: ");
+            Console.WriteLine("(ex: 0,0,N)");
+            Console.SetCursorPosition(38, 3);
+
+            string input2 = Console.ReadLine()!;
+
+            string[] posicoes2 = input2.Split(' ', ',');
 
             //problema em digitar ', '(espaco e virgula) continuamente
 
-            int posicaoInicialX = Convert.ToInt32(posicoes[0]);
-            int posicaoInicialY = Convert.ToInt32(posicoes[1]);
-            string olharInicial = posicoes[2].ToUpper();
+            int posicaoInicialX1 = Convert.ToInt32(posicoes1[0]);
+            int posicaoInicialY1 = Convert.ToInt32(posicoes1[1]);
+            string olharInicial1 = posicoes1[2].ToUpper();
 
-            Console.WriteLine("A posição inicial do robo é:");
-            Console.WriteLine($"X: {posicaoInicialX}");
-            Console.WriteLine($"Y: {posicaoInicialY}");
-            Console.WriteLine($"Direção: {olharInicial}");
+            int posicaoInicialX2 = Convert.ToInt32(posicoes2[0]);
+            int posicaoInicialY2 = Convert.ToInt32(posicoes2[1]);
+            string olharInicial2 = posicoes2[2].ToUpper();
 
-            if (posicaoInicialX > areaValida || posicaoInicialY > areaValida)
+            Console.WriteLine("A posição inicial do primeiro robô é:");
+            Console.WriteLine($"X: {posicaoInicialX1}");
+            Console.WriteLine($"Y: {posicaoInicialY1}");
+            Console.WriteLine($"Direção: {olharInicial1}");
+
+            Console.WriteLine("A posição inicial do segundo robô é:");
+            Console.WriteLine($"X: {posicaoInicialX2}");
+            Console.WriteLine($"Y: {posicaoInicialY2}");
+            Console.WriteLine($"Direção: {olharInicial2}");
+
+            if (posicaoInicialX1 > areaValida || posicaoInicialY1 > areaValida)
             {
                 Console.WriteLine();
                 Console.WriteLine("Posição inicial do robô é maior que a área de busca. Tente novamente.");
@@ -94,7 +112,7 @@ internal class Program
                 continue;
 
             }
-            else if (!("NSLO".Contains(olharInicial)))
+            else if (!("NSLO".Contains(olharInicial1)))
             {
                 Console.WriteLine();
                 Console.WriteLine("Este Ponto Cardial não existe, tente abreviado (N, S, L ou O). Tente novamente.");
@@ -104,124 +122,193 @@ internal class Program
 
             }
 
-            //robo instrucoes
+            //robos instrucoes
             //char[] instrucoes = "E".ToCharArray();
 
             Console.Clear();
             Console.WriteLine();
             Console.WriteLine($"Área X: {areaValida}m² Área Y: {areaValida}m²");
-            Console.WriteLine("-------------------------------");
-            Console.WriteLine();
-            Console.WriteLine("A posição inicial do robo é:");
-            Console.WriteLine($"X: {posicaoInicialX}");
-            Console.WriteLine($"Y: {posicaoInicialY}");
-            Console.WriteLine($"Direção: {olharInicial}");
-            Console.WriteLine();
-            Console.WriteLine($"------------------------------");
+            Console.WriteLine("------------------------------------------------------------------------------");
+            Console.WriteLine("A posição inicial do primeiro robô é:");
+            Console.WriteLine($"X: {posicaoInicialX1}");
+            Console.WriteLine($"Y: {posicaoInicialY1}");
+            Console.WriteLine($"Direção: {olharInicial1}");
 
-            Console.SetCursorPosition(7, 10);
-            Console.WriteLine("x--------------x");
-            Console.SetCursorPosition(7, 11);
-            Console.WriteLine("| MOVIMENTAÇÃO |");
-            Console.SetCursorPosition(7, 12);
-            Console.WriteLine("x--------------x");
-            Console.WriteLine($"------------------------------");
+            Console.SetCursorPosition(39, 3);
+            Console.WriteLine("| A posição inicial do segundo robô é:");
+            Console.SetCursorPosition(39, 4);
+            Console.WriteLine($"| X: {posicaoInicialX2}");
+            Console.SetCursorPosition(39, 5);
+            Console.WriteLine($"| Y: {posicaoInicialY2}");
+            Console.SetCursorPosition(39, 6);
+            Console.WriteLine($"| Direção: {olharInicial2}");
+            Console.WriteLine($"------------------------------------------------------------------------------");
+
+            Console.SetCursorPosition(10, 8);
+            Console.WriteLine("x--------------x             |");
+            Console.SetCursorPosition(10, 9);
+            Console.WriteLine("| MOVIMENTAÇÃO |             |");
+            Console.SetCursorPosition(10, 10);
+            Console.WriteLine("x--------------x             |");
+            Console.WriteLine($"----------------------------------------");
             Console.WriteLine();
 
             while (true)
             {
-                Console.WriteLine($"---------------------------------");
-                Console.WriteLine("Digite as instruções para o robô: ");
-                string instrucoes = Console.ReadLine()!.ToUpper();
+                Console.WriteLine("Digite as instruções para o primeiro robô: ");
+                string instrucoes1 = Console.ReadLine()!.ToUpper();
 
-                char[] instrucoesArray = instrucoes.ToCharArray();
+                char[] instrucoesArray1 = instrucoes1.ToCharArray();
 
-                string olharRobo = olharInicial;
-                int posicaoX = posicaoInicialX;
-                int posicaoY = posicaoInicialY;
+                string olharRobo1 = olharInicial1;
+                int posicaoX1 = posicaoInicialX1;
+                int posicaoY1 = posicaoInicialY1;
 
-                foreach (char instrucao in instrucoesArray)
+                foreach (char instrucao in instrucoesArray1)
                 {
                     if (instrucao == 'E')
                     {
-                        if (olharRobo == "N")
-                            olharRobo = "O";
+                        if (olharRobo1 == "N")
+                            olharRobo1 = "O";
 
-                        else if (olharRobo == "O")
-                            olharRobo = "S";
+                        else if (olharRobo1 == "O")
+                            olharRobo1 = "S";
 
-                        else if (olharRobo == "S")
-                            olharRobo = "L";
+                        else if (olharRobo1 == "S")
+                            olharRobo1 = "L";
 
-                        else if (olharRobo == "L")
-                            olharRobo = "N";
+                        else if (olharRobo1 == "L")
+                            olharRobo1 = "N";
 
                     }
                     else if (instrucao == 'D')
                     {
-                        if (olharRobo == "N")
-                            olharRobo = "L";
+                        if (olharRobo1 == "N")
+                            olharRobo1 = "L";
 
-                        else if (olharRobo == "L")
-                            olharRobo = "S";
+                        else if (olharRobo1 == "L")
+                            olharRobo1 = "S";
 
-                        else if (olharRobo == "S")
-                            olharRobo = "O";
+                        else if (olharRobo1 == "S")
+                            olharRobo1 = "O";
 
-                        else if (olharRobo == "O")
-                            olharRobo = "N";
+                        else if (olharRobo1 == "O")
+                            olharRobo1 = "N";
                     }
 
                     else if (instrucao == 'M')
                     {
-                        if (olharRobo == "N")
-                            posicaoY += 1;
+                        if (olharRobo1 == "N")
+                            posicaoY1 += 1;
 
-                        else if (olharRobo == "S")
-                            posicaoY -= 1;
+                        else if (olharRobo1 == "S")
+                            posicaoY1 -= 1;
 
-                        else if (olharRobo == "O")
-                            posicaoX -= 1;
+                        else if (olharRobo1 == "O")
+                            posicaoX1 -= 1;
 
-                        else if (olharRobo == "L")
-                            posicaoX += 1;
+                        else if (olharRobo1 == "L")
+                            posicaoX1 += 1;
                     }
                 }
+
+                Console.WriteLine("Digite as instruções para o primeiro robô: ");
+                string instrucoes2 = Console.ReadLine()!.ToUpper();
+
+                char[] instrucoesArray2 = instrucoes2.ToCharArray();
+
+                string olharRobo2 = olharInicial2;
+                int posicaoX2 = posicaoInicialX2;
+                int posicaoY2 = posicaoInicialY2;
+
+                foreach (char instrucao in instrucoesArray2)
+                {
+                    if (instrucao == 'E')
+                    {
+                        if (olharRobo2 == "N")
+                            olharRobo2 = "O";
+
+                        else if (olharRobo2 == "O")
+                            olharRobo2 = "S";
+
+                        else if (olharRobo2 == "S")
+                            olharRobo2 = "L";
+
+                        else if (olharRobo2 == "L")
+                            olharRobo2 = "N";
+
+                    }
+                    else if (instrucao == 'D')
+                    {
+                        if (olharRobo2 == "N")
+                            olharRobo2 = "L";
+
+                        else if (olharRobo2 == "L")
+                            olharRobo2 = "S";
+
+                        else if (olharRobo2 == "S")
+                            olharRobo2 = "O";
+
+                        else if (olharRobo2 == "O")
+                            olharRobo2 = "N";
+                    }
+
+                    else if (instrucao == 'M')
+                    {
+                        if (olharRobo2 == "N")
+                            posicaoY2 += 1;
+
+                        else if (olharRobo2 == "S")
+                            posicaoY2 -= 1;
+
+                        else if (olharRobo2 == "O")
+                            posicaoX2 -= 1;
+
+                        else if (olharRobo2 == "L")
+                            posicaoX2 += 1;
+                    }
+                }
+
                 Console.Clear();
                 Console.WriteLine();
                 Console.WriteLine($"Área X: {areaValida}m² Área Y: {areaValida}m²");
-                Console.WriteLine("-------------------------------");
-                Console.WriteLine();
-                Console.WriteLine("A posição atual do robo é:");
-                Console.WriteLine($"X: {posicaoX}");
-                Console.WriteLine($"Y: {posicaoY}");
-                Console.WriteLine($"Direção: {olharRobo}");
-                Console.WriteLine();
-                Console.WriteLine($"------------------------------");
+                Console.WriteLine("------------------------------------------------------------------------------");
+                Console.WriteLine("A posição atual do primeiro robô é:");
+                Console.WriteLine($"X: {posicaoX1}");
+                Console.WriteLine($"Y: {posicaoY1}");
+                Console.WriteLine($"Direção: {olharRobo1}");
 
-                Console.SetCursorPosition(7, 10);
-                Console.WriteLine("x--------------x");
-                Console.SetCursorPosition(7, 11);
-                Console.WriteLine("| MOVIMENTAÇÃO |");
-                Console.SetCursorPosition(7, 12);
-                Console.WriteLine("x--------------x");
-                Console.WriteLine($"------------------------------");
+                Console.SetCursorPosition(39, 3);
+                Console.WriteLine("| A posição atual do segundo robô é:");
+                Console.SetCursorPosition(39, 4);
+                Console.WriteLine($"| X: {posicaoX2}");
+                Console.SetCursorPosition(39, 5);
+                Console.WriteLine($"| Y: {posicaoY2}");
+                Console.SetCursorPosition(39, 6);
+                Console.WriteLine($"| Direção: {olharRobo2}");
+                Console.WriteLine($"------------------------------------------------------------------------------");
+
+                Console.SetCursorPosition(10, 8);
+                Console.WriteLine("x--------------x             |");
+                Console.SetCursorPosition(10, 9);
+                Console.WriteLine("| MOVIMENTAÇÃO |             |");
+                Console.SetCursorPosition(10, 10);
+                Console.WriteLine("x--------------x             |");
+                Console.WriteLine($"----------------------------------------");
                 Console.WriteLine();
 
-                olharInicial = olharRobo;
-                posicaoInicialX = posicaoX;
-                posicaoInicialY = posicaoY;
+                olharInicial1 = olharRobo1;
+                posicaoInicialX1 = posicaoX1;
+                posicaoInicialY1 = posicaoY1;
 
-                Console.WriteLine("Deseja mover o robo novamente? [S/N]");
-                string opcaoSair = Console.ReadLine()!.ToUpper();
-                if (opcaoSair != "S")
-                    break;
+                olharInicial2 = olharRobo2;
+                posicaoInicialX2 = posicaoX2;
+                posicaoInicialY2 = posicaoY2;
+
+                break;
             }
-
             Console.ReadLine();
         }
 
-
     }
-
 }
