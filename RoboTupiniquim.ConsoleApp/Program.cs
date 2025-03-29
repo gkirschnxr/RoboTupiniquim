@@ -18,7 +18,7 @@ internal class Program
             Console.SetCursorPosition(50, 1);
             int area = Convert.ToInt32(Console.ReadLine())!;
 
-            
+
 
             if (int.TryParse(Convert.ToString(area), out areaValida))
             {
@@ -30,7 +30,7 @@ internal class Program
                     for (int i = 0; i < 3; i++)
                     {
                         Console.Write(".");
-                        Thread.Sleep(400);
+                        Thread.Sleep(00);
                     }
 
                     areaValida = area * area;
@@ -61,15 +61,15 @@ internal class Program
         }
 
         //robo posicao inicial
-        //char[] instrucoes = "E".ToCharArray();
 
         while (true)
-        { 
+        {
             Console.Clear();
             Console.WriteLine($"Área X: {areaValida}m² Área Y: {areaValida}m²");
-
-            Console.Write("Descreva a posição inicial do robô: ");
+            Console.WriteLine("Descreva a posição inicial do robô: ");
             Console.WriteLine("(ex: 0,0,N)");
+            Console.SetCursorPosition(36, 1);
+
             string input = Console.ReadLine()!;
 
             string[] posicoes = input.Split(' ', ',');
@@ -93,7 +93,8 @@ internal class Program
                 Console.ReadLine();
                 continue;
 
-            } else if (!("NSLO".Contains(olharInicial)))
+            }
+            else if (!("NSLO".Contains(olharInicial)))
             {
                 Console.WriteLine();
                 Console.WriteLine("Este Ponto Cardial não existe, tente abreviado (N, S, L ou O). Tente novamente.");
@@ -103,16 +104,124 @@ internal class Program
 
             }
 
+            //robo instrucoes
+            //char[] instrucoes = "E".ToCharArray();
 
+            Console.Clear();
+            Console.WriteLine();
+            Console.WriteLine($"Área X: {areaValida}m² Área Y: {areaValida}m²");
+            Console.WriteLine("-------------------------------");
+            Console.WriteLine();
+            Console.WriteLine("A posição inicial do robo é:");
+            Console.WriteLine($"X: {posicaoInicialX}");
+            Console.WriteLine($"Y: {posicaoInicialY}");
+            Console.WriteLine($"Direção: {olharInicial}");
+            Console.WriteLine();
+            Console.WriteLine($"------------------------------");
 
+            Console.SetCursorPosition(7, 10);
+            Console.WriteLine("x--------------x");
+            Console.SetCursorPosition(7, 11);
+            Console.WriteLine("| MOVIMENTAÇÃO |");
+            Console.SetCursorPosition(7, 12);
+            Console.WriteLine("x--------------x");
+            Console.WriteLine($"------------------------------");
+            Console.WriteLine();
 
+            while (true)
+            {
+                Console.WriteLine($"---------------------------------");
+                Console.WriteLine("Digite as instruções para o robô: ");
+                string instrucoes = Console.ReadLine()!.ToUpper();
 
+                char[] instrucoesArray = instrucoes.ToCharArray();
 
+                string olharRobo = olharInicial;
+                int posicaoX = posicaoInicialX;
+                int posicaoY = posicaoInicialY;
 
+                foreach (char instrucao in instrucoesArray)
+                {
+                    if (instrucao == 'E')
+                    {
+                        if (olharRobo == "N")
+                            olharRobo = "O";
 
+                        else if (olharRobo == "O")
+                            olharRobo = "S";
 
-                Console.ReadLine();
+                        else if (olharRobo == "S")
+                            olharRobo = "L";
+
+                        else if (olharRobo == "L")
+                            olharRobo = "N";
+
+                    }
+                    else if (instrucao == 'D')
+                    {
+                        if (olharRobo == "N")
+                            olharRobo = "L";
+
+                        else if (olharRobo == "L")
+                            olharRobo = "S";
+
+                        else if (olharRobo == "S")
+                            olharRobo = "O";
+
+                        else if (olharRobo == "O")
+                            olharRobo = "N";
+                    }
+
+                    else if (instrucao == 'M')
+                    {
+                        if (olharRobo == "N")
+                            posicaoY += 1;
+
+                        else if (olharRobo == "S")
+                            posicaoY -= 1;
+
+                        else if (olharRobo == "O")
+                            posicaoX -= 1;
+
+                        else if (olharRobo == "L")
+                            posicaoX += 1;
+                    }
+                }
+                Console.Clear();
+                Console.WriteLine();
+                Console.WriteLine($"Área X: {areaValida}m² Área Y: {areaValida}m²");
+                Console.WriteLine("-------------------------------");
+                Console.WriteLine();
+                Console.WriteLine("A posição atual do robo é:");
+                Console.WriteLine($"X: {posicaoX}");
+                Console.WriteLine($"Y: {posicaoY}");
+                Console.WriteLine($"Direção: {olharRobo}");
+                Console.WriteLine();
+                Console.WriteLine($"------------------------------");
+
+                Console.SetCursorPosition(7, 10);
+                Console.WriteLine("x--------------x");
+                Console.SetCursorPosition(7, 11);
+                Console.WriteLine("| MOVIMENTAÇÃO |");
+                Console.SetCursorPosition(7, 12);
+                Console.WriteLine("x--------------x");
+                Console.WriteLine($"------------------------------");
+                Console.WriteLine();
+
+                olharInicial = olharRobo;
+                posicaoInicialX = posicaoX;
+                posicaoInicialY = posicaoY;
+
+                Console.WriteLine("Deseja mover o robo novamente? [S/N]");
+                string opcaoSair = Console.ReadLine()!.ToUpper();
+                if (opcaoSair != "S")
+                    break;
+            }
+
+            Console.ReadLine();
         }
 
+
     }
+
 }
