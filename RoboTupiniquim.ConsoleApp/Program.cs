@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 
 namespace RoboTupiniquim.ConsoleApp;
 
@@ -24,8 +25,7 @@ internal class Program
             {
                 if (areaValida > 0)
                 {
-                    Console.WriteLine();
-                    Console.Write("Criando sua área de busca");
+                    Console.Write("\nCriando sua área de busca");
 
                     for (int i = 0; i < 3; i++)
                     {
@@ -35,13 +35,11 @@ internal class Program
 
                     areaValida = area * area;
 
-                    Console.WriteLine();
-                    Console.WriteLine();
-                    Console.WriteLine("-------------------------------------");
+                    Console.WriteLine("\n\n-------------------------------------");
                     Console.WriteLine($"Sua area de busca é: {areaValida}m²");
                     Console.WriteLine("Mova o Robô de acordo.");
                     Console.WriteLine("-------------------------------------");
-                    Console.WriteLine("Pressione ENTER para continuar");
+                    Console.Write("Pressione ENTER para continuar");
                     Console.ReadLine();
 
                 }
@@ -50,7 +48,7 @@ internal class Program
                     Console.WriteLine("-------------------------------------");
                     Console.WriteLine("Digite apenas números maiores de zero");
                     Console.WriteLine("-------------------------------------");
-                    Console.WriteLine("Pressione ENTER para continuar");
+                    Console.Write("Pressione ENTER para continuar");
                     Console.ReadLine();
                     continue;
                 }
@@ -103,20 +101,20 @@ internal class Program
             Console.WriteLine($"Y: {posicaoInicialY2}");
             Console.WriteLine($"Direção: {olharInicial2}");
 
-            if (posicaoInicialX1 > areaValida || posicaoInicialY1 > areaValida)
+            if (posicaoInicialX1 > areaValida || posicaoInicialY1 > areaValida || posicaoInicialX2 > areaValida || posicaoInicialY2 > areaValida)
             {
-                Console.WriteLine();
+                Console.Clear();
                 Console.WriteLine("Posição inicial do robô é maior que a área de busca. Tente novamente.");
-                Console.WriteLine("Pressione ENTER para continuar");
+                Console.Write("Pressione ENTER para continuar");
                 Console.ReadLine();
                 continue;
 
             }
             else if (!("NSLO".Contains(olharInicial1)))
             {
-                Console.WriteLine();
-                Console.WriteLine("Este Ponto Cardial não existe, tente abreviado (N, S, L ou O). Tente novamente.");
-                Console.WriteLine("Pressione ENTER para continuar");
+                Console.Clear();
+                Console.WriteLine($"O Ponto Cardial {olharInicial1} não existe, tente abreviado (N, S, L ou O). Tente novamente.");
+                Console.Write("Pressione ENTER para continuar");
                 Console.ReadLine();
                 continue;
 
@@ -125,38 +123,36 @@ internal class Program
             //robos instrucoes
             //char[] instrucoes = "E".ToCharArray();
 
-            Console.Clear();
-            Console.WriteLine();
-            Console.WriteLine($"Área X: {areaValida}m² Área Y: {areaValida}m²");
-            Console.WriteLine("------------------------------------------------------------------------------");
-            Console.WriteLine("A posição inicial do primeiro robô é:");
-            Console.WriteLine($"X: {posicaoInicialX1}");
-            Console.WriteLine($"Y: {posicaoInicialY1}");
-            Console.WriteLine($"Direção: {olharInicial1}");
-
-            Console.SetCursorPosition(39, 3);
-            Console.WriteLine("| A posição inicial do segundo robô é:");
-            Console.SetCursorPosition(39, 4);
-            Console.WriteLine($"| X: {posicaoInicialX2}");
-            Console.SetCursorPosition(39, 5);
-            Console.WriteLine($"| Y: {posicaoInicialY2}");
-            Console.SetCursorPosition(39, 6);
-            Console.WriteLine($"| Direção: {olharInicial2}");
-            Console.WriteLine($"------------------------------------------------------------------------------");
-
-            Console.SetCursorPosition(10, 8);
-            Console.WriteLine("x--------------x             |");
-            Console.SetCursorPosition(10, 9);
-            Console.WriteLine("| MOVIMENTAÇÃO |             |");
-            Console.SetCursorPosition(10, 10);
-            Console.WriteLine("x--------------x             |");
-            Console.WriteLine($"----------------------------------------");
-            Console.WriteLine();
-
             while (true)
             {
-                Console.WriteLine("Digite as instruções para o primeiro robô: ");
+                Console.Clear();
+                Console.WriteLine($"\nÁrea X: {areaValida}m² Área Y: {areaValida}m²");
+                Console.WriteLine("------------------------------------------------------------------------------");
+                Console.WriteLine("A posição inicial do primeiro robô é:");
+                Console.WriteLine($"X: {posicaoInicialX1}");
+                Console.WriteLine($"Y: {posicaoInicialY1}");
+                Console.WriteLine($"Direção: {olharInicial1}");
+
+                Console.SetCursorPosition(39, 3);
+                Console.WriteLine("| A posição inicial do segundo robô é:");
+                Console.SetCursorPosition(39, 4);
+                Console.WriteLine($"| X: {posicaoInicialX2}");
+                Console.SetCursorPosition(39, 5);
+                Console.WriteLine($"| Y: {posicaoInicialY2}");
+                Console.SetCursorPosition(39, 6);
+                Console.WriteLine($"| Direção: {olharInicial2}");
+                Console.WriteLine("------------------------------------------------------------------------------");
+
+                Console.SetCursorPosition(10, 8);
+                Console.WriteLine("x--------------x             |");
+                Console.SetCursorPosition(10, 9);
+                Console.WriteLine("| MOVIMENTAÇÃO |             |");
+                Console.SetCursorPosition(10, 10);
+                Console.WriteLine("x--------------x             |");
+                Console.WriteLine("----------------------------------------\n");
+                Console.Write("Digite as instruções para o primeiro robô: ");
                 string instrucoes1 = Console.ReadLine()!.ToUpper();
+                Console.WriteLine();
 
                 char[] instrucoesArray1 = instrucoes1.ToCharArray();
 
@@ -212,7 +208,7 @@ internal class Program
                     }
                 }
 
-                Console.WriteLine("Digite as instruções para o primeiro robô: ");
+                Console.Write("Digite as instruções para o segundo robô: ");
                 string instrucoes2 = Console.ReadLine()!.ToUpper();
 
                 char[] instrucoesArray2 = instrucoes2.ToCharArray();
@@ -269,9 +265,33 @@ internal class Program
                     }
                 }
 
+                if (posicaoX1 < 0 || posicaoY1 < 0 || posicaoX1 > areaValida || posicaoY1 > areaValida)
+                {
+                    Console.WriteLine($"A posição X: {posicaoX1}, Y: {posicaoY1} do robô 1 é inválida. Tente novamente.");
+                    Console.Write("Pressione ENTER para continuar");
+                    Console.ReadLine();
+                    continue;
+
+                }
+                else if (posicaoX2 < 0 || posicaoY2 < 0 || posicaoX2 > areaValida || posicaoY2 > areaValida)
+                {
+                    Console.WriteLine($"A posição X: {posicaoX2}, Y: {posicaoY2} do robô 2 é inválida. Tente novamente.");
+                    Console.Write("Pressione ENTER para continuar");
+                    Console.ReadLine();
+                    continue;
+
+                }
+                else if (!("NSLO".Contains(olharRobo1)) || !("NSLO".Contains(olharRobo2)))
+                {
+                    Console.WriteLine("O Ponto Cardial digitado não existe, tente abreviado (N, S, L ou O). Tente novamente.");
+                    Console.Write("Pressione ENTER para continuar");
+                    Console.ReadLine();
+                    continue;
+
+                }
+
                 Console.Clear();
-                Console.WriteLine();
-                Console.WriteLine($"Área X: {areaValida}m² Área Y: {areaValida}m²");
+                Console.WriteLine($"\nÁrea X: {areaValida}m² Área Y: {areaValida}m²");
                 Console.WriteLine("------------------------------------------------------------------------------");
                 Console.WriteLine("A posição atual do primeiro robô é:");
                 Console.WriteLine($"X: {posicaoX1}");
@@ -305,9 +325,45 @@ internal class Program
                 posicaoInicialX2 = posicaoX2;
                 posicaoInicialY2 = posicaoY2;
 
-                break;
+
+                Console.WriteLine("Deseja mover os robos mais uma vez? [S/N]");
+                string opcaoContinuar = Console.ReadLine()!.ToUpper();
+
+                if (opcaoContinuar != "S")
+                    break;
+
+                else
+                {
+                    Console.Clear();
+                    Console.WriteLine($"\nÁrea X: {areaValida}m² Área Y: {areaValida}m²");
+                    Console.WriteLine("------------------------------------------------------------------------------");
+                    Console.WriteLine("A posição atual do primeiro robô é:");
+                    Console.WriteLine($"X: {posicaoInicialX1}");
+                    Console.WriteLine($"Y: {posicaoInicialY1}");
+                    Console.WriteLine($"Direção: {olharInicial1}");
+
+                    Console.SetCursorPosition(39, 3);
+                    Console.WriteLine("| A posição atual do segundo robô é:");
+                    Console.SetCursorPosition(39, 4);
+                    Console.WriteLine($"| X: {posicaoInicialX2}");
+                    Console.SetCursorPosition(39, 5);
+                    Console.WriteLine($"| Y: {posicaoInicialY2}");
+                    Console.SetCursorPosition(39, 6);
+                    Console.WriteLine($"| Direção: {olharInicial2}");
+                    Console.WriteLine("------------------------------------------------------------------------------");
+
+                    Console.SetCursorPosition(10, 8);
+                    Console.WriteLine("x--------------x             |");
+                    Console.SetCursorPosition(10, 9);
+                    Console.WriteLine("| MOVIMENTAÇÃO |             |");
+                    Console.SetCursorPosition(10, 10);
+                    Console.WriteLine("x--------------x             |");
+                    Console.WriteLine("----------------------------------------\n");
+                    continue;
+                }
             }
-            Console.ReadLine();
+
+            break;
         }
 
     }
